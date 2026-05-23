@@ -4,6 +4,7 @@
 
 
 ## Backlog
+- Consider draft mechanism for blog posts (frontmatter `draft: true` skipped at build time, like Hugo/Jekyll)
 - Write landing page content
 - Write about page content
 - Add first real project to projects page
