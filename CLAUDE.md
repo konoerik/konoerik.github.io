@@ -7,7 +7,7 @@ Python scripts handle the mechanical build step. No frameworks, no static site g
 
 ## Tech Stack
 - HTML/CSS (no JS framework, no CSS framework)
-- Python 3 build scripts (stdlib only — no pip dependencies)
+- Python 3 build scripts (minimal dependencies — `markdown`, `pyyaml`; managed via `uv`)
 - GitHub Actions for automated deploy on push to main
 
 ## Key Conventions
@@ -27,4 +27,4 @@ Python scripts handle the mechanical build step. No frameworks, no static site g
 ## Behavior Rules
 - Never add JS frameworks, CSS frameworks, or pip dependencies to the build
 - Do not modify files in site/ directly — always edit src/ and rebuild
-- Keep admin.py stdlib-only and readable top to bottom
+- Keep admin.py dependencies minimal and readable top to bottom

@@ -2,10 +2,10 @@
 
 ## Quick Reference
 
-**Stack:** HTML/CSS, Python 3 (stdlib only), GitHub Actions
-**Entry points:** `src/index.html` (landing), `admin.py` (build CLI)
-**Key constraints:** no frameworks, no pip dependencies, stdlib-only build scripts
-**Patterns:** source in `src/`, output to `site/` (git-ignored); page metadata via HTML comment frontmatter; blog index auto-generated from `src/blog/posts/YYYY-MM-DD-slug.html`
+**Stack:** HTML/CSS, Python 3 (minimal deps: `markdown`, `pyyaml`), GitHub Actions
+**Entry points:** `src/index.md` (landing), `admin.py` (build CLI)
+**Key constraints:** no frameworks, minimal pip dependencies, keep `admin.py` readable top to bottom
+**Patterns:** source in `src/` as Markdown with YAML frontmatter, output to `site/` (git-ignored); blog index auto-generated from `src/blog/posts/YYYY-MM-DD-slug.md`
 
 
 ## Decisions (ADRs)
