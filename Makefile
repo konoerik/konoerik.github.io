@@ -1,13 +1,32 @@
-.PHONY: build serve clean new-post
+.PHONY: build serve clean new-post install help
 
-build:
-	python3 admin.py build
+PYTHON := .venv/bin/python3
+
+help:
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "  install          Create .venv and install dependencies"
+	@echo "  build            Build src/ -> site/"
+	@echo "  serve            Build then serve at localhost:8000"
+	@echo "  new-post         Scaffold a post: make new-post TITLE='My Title'"
+	@echo "  clean            Remove site/"
+
+install:
+	uv venv .venv
+	uv pip install -r requirements.txt
+
+build: .venv
+	$(PYTHON) admin.py build
 
 serve: build
-	python3 -m http.server 8000 --directory site/
+	$(PYTHON) -m http.server 8000 --directory site/
 
 clean:
 	rm -rf site/
 
-new-post:
-	python3 admin.py new-post $(TITLE)
+new-post: .venv
+	$(PYTHON) admin.py new-post $(TITLE)
+
+.venv:
+	uv venv .venv
+	uv pip install -r requirements.txt

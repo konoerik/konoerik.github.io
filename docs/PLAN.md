@@ -16,3 +16,6 @@
 - admin.py CLI (build, new-post)
 - Makefile
 - GitHub Actions deploy workflow
+- Migrate src/ to Markdown + YAML frontmatter (python-markdown, pyyaml, uv/.venv)
+- Makefile: add install and help targets
+- README: update for markdown workflow, add reference section
