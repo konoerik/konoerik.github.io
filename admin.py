@@ -9,7 +9,9 @@ import argparse
 import re
 import shutil
 from datetime import date
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlparse
 
 import markdown as md_lib
 import yaml
@@ -136,6 +138,111 @@ def cmd_new_post(args):
 
 
 # ---------------------------------------------------------------------------
+# check
+# ---------------------------------------------------------------------------
+
+_VOID = {
+    "area", "base", "br", "col", "embed", "hr", "img", "input",
+    "link", "meta", "param", "source", "track", "wbr",
+}
+
+
+class _TagChecker(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.errors = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in _VOID:
+            self.stack.append(tag)
+
+    def handle_endtag(self, tag):
+        if tag in _VOID:
+            return
+        if self.stack and self.stack[-1] == tag:
+            self.stack.pop()
+        else:
+            expected = self.stack[-1] if self.stack else "none"
+            self.errors.append(f"unexpected </{tag}>, expected </{expected}>")
+
+
+class _LinkExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "a":
+            url = attrs.get("href")
+        elif tag in ("img", "script"):
+            url = attrs.get("src")
+        elif tag == "link":
+            url = attrs.get("href")
+        else:
+            return
+        if url:
+            self.links.append(url)
+
+
+def _resolve(base_file, url, site_root):
+    parsed = urlparse(url)
+    if parsed.scheme or url.startswith("//") or not parsed.path:
+        return None
+    path = parsed.path
+    target = (site_root / path.lstrip("/")) if path.startswith("/") else (base_file.parent / path)
+    target = target.resolve()
+    if target.is_dir():
+        target = target / "index.html"
+    return target
+
+
+def cmd_check(_args):
+    issues = []
+
+    # 1. Frontmatter: title required in every source file
+    for src in sorted(SRC.rglob("*.md")):
+        meta, _ = parse_frontmatter(src.read_text())
+        if not meta.get("title"):
+            issues.append(f"[frontmatter] missing title: {src.relative_to(SRC)}")
+
+    if not SITE.exists():
+        print("site/ not found — run 'make build' first")
+        raise SystemExit(1)
+
+    site_root = SITE.resolve()
+    pages = sorted(SITE.rglob("*.html"))
+
+    for html_file in pages:
+        rel = html_file.relative_to(SITE)
+        text = html_file.read_text()
+
+        # 2. Tag balance
+        checker = _TagChecker()
+        checker.feed(text)
+        for err in checker.errors:
+            issues.append(f"[html] {rel}: {err}")
+        for tag in checker.stack:
+            issues.append(f"[html] {rel}: unclosed <{tag}>")
+
+        # 3. Internal link integrity
+        extractor = _LinkExtractor()
+        extractor.feed(text)
+        for url in extractor.links:
+            target = _resolve(html_file, url, site_root)
+            if target and not target.exists():
+                issues.append(f"[links] {rel}: broken → '{url}'")
+
+    if issues:
+        for issue in issues:
+            print(issue)
+        raise SystemExit(1)
+
+    print(f"ok — {len(pages)} pages, no issues")
+
+
+# ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 
@@ -147,6 +254,7 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("build", help="Build src/ -> site/")
+    sub.add_parser("check", help="Check built site for broken links, tag balance, and missing frontmatter")
 
     p_post = sub.add_parser("new-post", help="Scaffold a new blog post")
     p_post.add_argument("title", nargs="+", help="Post title (no quotes needed)")
@@ -155,6 +263,7 @@ def main():
 
     dispatch = {
         "build": cmd_build,
+        "check": cmd_check,
         "new-post": cmd_new_post,
     }
     dispatch[args.command](args)
