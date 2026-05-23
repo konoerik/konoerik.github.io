@@ -1,3 +1,21 @@
+:root {
+  --bg: #fff;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --border: #e0e0e0;
+  --link: #0066cc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --text: #e0e0e0;
+    --text-muted: #999;
+    --border: #333;
+    --link: #6fa8dc;
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -7,13 +25,13 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 1.125rem;
   line-height: 1.6;
-  color: #1a1a1a;
-  background: #fff;
+  color: var(--text);
+  background: var(--bg);
 }
 
 header {
   padding: 1rem 2rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border);
 }
 
 nav {
@@ -23,7 +41,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: inherit;
+  color: var(--text);
 }
 
 nav a:hover {
@@ -39,21 +57,21 @@ main {
 footer {
   margin-top: 4rem;
   padding: 2rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border);
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-muted);
   text-align: center;
 }
 
 h1 { font-size: 2rem; margin-top: 0; }
 h2 { font-size: 1.5rem; }
 
-a { color: #0066cc; }
+a { color: var(--link); }
 
 article {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border);
 }
 
 article:last-child {
@@ -62,5 +80,5 @@ article:last-child {
 
 time {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-muted);
 }
