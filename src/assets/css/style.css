@@ -63,6 +63,25 @@ footer {
   text-align: center;
 }
 
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+}
+
+.footer-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-icon:hover {
+  color: var(--text);
+}
+
 h1 { font-size: 2rem; margin-top: 0; }
 h2 { font-size: 1.5rem; }
 

@@ -5,11 +5,8 @@
 
 ## Backlog
 - Consider draft mechanism for blog posts (frontmatter `draft: true` skipped at build time, like Hugo/Jekyll)
-- Write landing page content
-- Write about page content
-- Add first real project to projects page
-- Write and publish first blog post
-- Enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
+- Add RSS feed: generate `site/blog/feed.xml` in `admin.py build`, add feed icon to footer
+- Add contact page: evaluate form solution (e.g. Formspree) so email never appears in HTML
 
 
 ## Done

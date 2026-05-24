@@ -1,8 +1,8 @@
 # Context
 <!-- Updated by /wrap at session end. Edit manually if needed. Keep it under 8 lines. -->
 
-**Current focus:** Cleaning up post history and preparing to push
-**Last session:** Committed missing deletion of renamed post, fixed wording in Hello World post, added draft mechanism to backlog
+**Current focus:** —
+**Last session:** Added LinkedIn and GitHub icon links to footer (inline SVG, new tab); removed email to avoid spam harvesting; added RSS feed and contact page to backlog
 **Blocking:** —
-**Next action:** Write landing and about page content
-<!-- wrapped: 2026-05-23 -->
+**Next action:** Commit footer icon changes and push to GitHub Pages
+<!-- wrapped: 2026-05-24 -->
