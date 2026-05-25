@@ -1,4 +1,4 @@
-.PHONY: build serve clean new-post install help check
+.PHONY: build serve clean new-post new-page install help check test
 
 PYTHON := .venv/bin/python3
 
@@ -10,6 +10,7 @@ help:
 	@echo "  check            Check built site for broken links, tag balance, missing frontmatter"
 	@echo "  serve            Build then serve at localhost:8000"
 	@echo "  new-post         Scaffold a post: make new-post TITLE='My Title'"
+	@echo "  new-page         Scaffold a page: make new-page PATH=projects/my-project TITLE='My Title'"
 	@echo "  clean            Remove site/"
 
 install:
@@ -25,11 +26,16 @@ serve: build
 check: build
 	$(PYTHON) admin.py check
 
+test: check
+
 clean:
 	rm -rf site/
 
 new-post: .venv
 	$(PYTHON) admin.py new-post $(TITLE)
+
+new-page: .venv
+	$(PYTHON) admin.py new-page $(PATH) $(TITLE)
 
 .venv:
 	uv venv .venv

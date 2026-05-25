@@ -138,6 +138,31 @@ def cmd_new_post(args):
 
 
 # ---------------------------------------------------------------------------
+# new-page
+# ---------------------------------------------------------------------------
+
+def cmd_new_page(args):
+    path = args.path.strip("/")
+    title = " ".join(args.title) if args.title else path.split("/")[-1].replace("-", " ").title()
+    dest = SRC / path / "index.md"
+
+    if dest.exists():
+        print(f"Already exists: {dest}")
+        raise SystemExit(1)
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(
+        f"---\n"
+        f"title: {title}\n"
+        f"description:\n"
+        f"---\n\n"
+        f"# {title}\n\n"
+        f"Write your content here.\n"
+    )
+    print(f"Created: {dest}")
+
+
+# ---------------------------------------------------------------------------
 # check
 # ---------------------------------------------------------------------------
 
@@ -259,12 +284,17 @@ def main():
     p_post = sub.add_parser("new-post", help="Scaffold a new blog post")
     p_post.add_argument("title", nargs="+", help="Post title (no quotes needed)")
 
+    p_page = sub.add_parser("new-page", help="Scaffold a new page")
+    p_page.add_argument("path", help="Path relative to src/ (e.g. projects/my-project)")
+    p_page.add_argument("title", nargs="*", help="Page title (optional, derived from path if omitted)")
+
     args = parser.parse_args()
 
     dispatch = {
         "build": cmd_build,
         "check": cmd_check,
         "new-post": cmd_new_post,
+        "new-page": cmd_new_page,
     }
     dispatch[args.command](args)
 
