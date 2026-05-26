@@ -1,4 +1,4 @@
-.PHONY: build serve clean new-post new-page install help check test
+.PHONY: build serve clean new-post new-page optimize-image install help check test
 
 PYTHON := .venv/bin/python3
 
@@ -11,6 +11,7 @@ help:
 	@echo "  serve            Build then serve at localhost:8000"
 	@echo "  new-post         Scaffold a post: make new-post TITLE='My Title'"
 	@echo "  new-page         Scaffold a page: make new-page PATH=projects/my-project TITLE='My Title'"
+	@echo "  optimize-image   Convert image to WebP: make optimize-image IMG=src/assets/images/foo.png"
 	@echo "  clean            Remove site/"
 
 install:
@@ -36,6 +37,9 @@ new-post: .venv
 
 new-page: .venv
 	$(PYTHON) admin.py new-page $(PATH) $(TITLE)
+
+optimize-image: .venv
+	$(PYTHON) admin.py optimize-image $(IMG)
 
 .venv:
 	uv venv .venv

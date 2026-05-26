@@ -2,7 +2,7 @@
 
 ## Quick Reference
 
-**Stack:** HTML/CSS, Python 3 (minimal deps: `markdown`, `pyyaml`), GitHub Actions
+**Stack:** HTML/CSS, Python 3 (minimal deps: `markdown`, `pyyaml`, `pillow`), GitHub Actions
 **Entry points:** `src/index.md` (landing), `admin.py` (build CLI)
 **Key constraints:** no frameworks, minimal pip dependencies, keep `admin.py` readable top to bottom
 **Patterns:** source in `src/` as Markdown with YAML frontmatter, output to `site/` (git-ignored); blog index auto-generated from `src/blog/posts/YYYY-MM-DD-slug.md`

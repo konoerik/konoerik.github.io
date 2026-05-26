@@ -2,7 +2,7 @@
 <!-- Updated by /wrap at session end. Edit manually if needed. Keep it under 8 lines. -->
 
 **Current focus:** —
-**Last session:** Added Open Source & DRM-Free experiment page under Projects; split projects index into Software/Experiments sections; added `new-page` command to admin.py and Makefile; added `make test` alias; proofread and fixed 5 errors on experiment page
+**Last session:** Added and proofread choosing-a-linux-distro post; bumped content width to 800px; added optimize-image command to admin.py (defaults: 1920px, quality 80); added image to post as 1920x1080 WebP
 **Blocking:** —
-**Next action:** Commit all changes and push to GitHub Pages
+**Next action:** Push to GitHub Pages
 <!-- wrapped: 2026-05-25 -->

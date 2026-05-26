@@ -2,8 +2,10 @@
 """Admin CLI for konoerik.github.io
 
 Commands:
-  build              Build src/ -> site/
-  new-post <title>   Scaffold a new blog post
+  build                    Build src/ -> site/
+  new-post <title>         Scaffold a new blog post
+  new-page <path> [title]  Scaffold a new page
+  optimize-image <file>    Resize and convert an image to WebP
 """
 import argparse
 import re
@@ -135,6 +137,35 @@ def cmd_new_post(args):
         f"Write your post here.\n"
     )
     print(f"Created: {dest}")
+
+
+# ---------------------------------------------------------------------------
+# optimize-image
+# ---------------------------------------------------------------------------
+
+def cmd_optimize_image(args):
+    from PIL import Image
+
+    src = Path(args.file)
+    if not src.exists():
+        print(f"File not found: {src}")
+        raise SystemExit(1)
+
+    dest = src.with_suffix(".webp")
+
+    img = Image.open(src)
+    w, h = img.size
+    if w > args.width:
+        h = round(h * args.width / w)
+        w = args.width
+        img = img.resize((w, h), Image.LANCZOS)
+
+    img.save(dest, "WEBP", quality=args.quality)
+    print(f"  saved  {dest}  ({dest.stat().st_size // 1024} KB, {w}x{h})")
+
+    if args.rm and dest.resolve() != src.resolve():
+        src.unlink()
+        print(f"  removed {src}")
 
 
 # ---------------------------------------------------------------------------
@@ -288,6 +319,12 @@ def main():
     p_page.add_argument("path", help="Path relative to src/ (e.g. projects/my-project)")
     p_page.add_argument("title", nargs="*", help="Page title (optional, derived from path if omitted)")
 
+    p_img = sub.add_parser("optimize-image", help="Resize and convert an image to WebP")
+    p_img.add_argument("file", help="Image file to optimize")
+    p_img.add_argument("--width", type=int, default=1920, help="Max width in px (default: 1920)")
+    p_img.add_argument("--quality", type=int, default=80, help="WebP quality 1-100 (default: 80)")
+    p_img.add_argument("--rm", action="store_true", help="Remove the original file after converting")
+
     args = parser.parse_args()
 
     dispatch = {
@@ -295,6 +332,7 @@ def main():
         "check": cmd_check,
         "new-post": cmd_new_post,
         "new-page": cmd_new_page,
+        "optimize-image": cmd_optimize_image,
     }
     dispatch[args.command](args)
 

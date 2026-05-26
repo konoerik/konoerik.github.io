@@ -7,6 +7,8 @@
 - Consider draft mechanism for blog posts (frontmatter `draft: true` skipped at build time, like Hugo/Jekyll)
 - Add RSS feed: generate `site/blog/feed.xml` in `admin.py build`, add feed icon to footer
 - Add contact page: evaluate form solution (e.g. Formspree) so email never appears in HTML
+- Tagging system for blog posts: tag frontmatter, tag index pages, filter by tag
+- Review blog post page layout: date placement, blog header size, back link to blog index
 
 
 ## Done
