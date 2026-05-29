@@ -106,3 +106,12 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+pre {
+  overflow-x: auto;
+}
+
+pre, code {
+  font-family: monospace;
+  font-size: 0.875rem;
+}

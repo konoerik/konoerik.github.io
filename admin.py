@@ -46,7 +46,7 @@ def render(template, meta, content, root):
 def build_page(src, dest, template):
     text = src.read_text()
     meta, body = parse_frontmatter(text)
-    content = md_lib.markdown(body)
+    content = md_lib.markdown(body, extensions=["tables", "fenced_code"])
     depth = len(dest.relative_to(SITE).parts) - 1
     root = "../" * depth
     dest.parent.mkdir(parents=True, exist_ok=True)
