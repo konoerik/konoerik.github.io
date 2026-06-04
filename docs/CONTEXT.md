@@ -2,7 +2,7 @@
 <!-- Updated by /wrap at session end. Edit manually if needed. Keep it under 8 lines. -->
 
 **Current focus:** —
-**Last session:** Added music landscape blog post (proofread + fixes); enabled markdown tables and fenced_code extensions; added pre/code CSS; built flac-checker tool under tools/flac-checker/ with isolated uv env; converted spectrogram PNGs to WebP at quality 70
+**Last session:** Proofread and fixed "Distro Hopping Already" post (spelling, grammar, markdown links, image alt, NOTE → italics); linked both experiment posts from the Open Source project page
 **Blocking:** —
-**Next action:** Push to GitHub Pages
-<!-- wrapped: 2026-05-28 -->
+**Next action:** Commit and push to GitHub Pages
+<!-- wrapped: 2026-06-04 -->

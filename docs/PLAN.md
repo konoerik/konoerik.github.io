@@ -4,6 +4,7 @@
 
 
 ## Backlog
+- Style blockquotes in markdown-to-HTML: add left-side ribbon (border-left) and/or subtle background; apply globally to all markdown content
 - Consider draft mechanism for blog posts (frontmatter `draft: true` skipped at build time, like Hugo/Jekyll)
 - Add RSS feed: generate `site/blog/feed.xml` in `admin.py build`, add feed icon to footer
 - Add contact page: evaluate form solution (e.g. Formspree) so email never appears in HTML

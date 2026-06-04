@@ -34,6 +34,5 @@ The irony is I will be using a 2018 Mac Mini for this. With Apple's transition t
 
 ## Posts
 
-Posts will appear here as I document the journey.
-
-<!-- posts -->
+- [Exploring The Music Landscape](../../blog/posts/2026-05-26-exploring-the-music-landscape.html) — May 26, 2026
+- [Distro Hopping Already](../../blog/posts/2026-06-04-distro-hopping-already.html) — June 4, 2026
