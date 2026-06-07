@@ -36,3 +36,4 @@ The irony is I will be using a 2018 Mac Mini for this. With Apple's transition t
 
 - [Exploring The Music Landscape](../../blog/posts/2026-05-26-exploring-the-music-landscape.html) — May 26, 2026
 - [Distro Hopping Already](../../blog/posts/2026-06-04-distro-hopping-already.html) — June 4, 2026
+- [Exploring The Movie Landscape](../../blog/posts/2026-06-06-exploring-the-movie-landscape.html) — June 6, 2026
